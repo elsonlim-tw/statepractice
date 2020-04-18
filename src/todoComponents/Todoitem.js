@@ -3,26 +3,28 @@ import "../todoComponents/Todo1.css";
 import { connect } from "react-redux";
 import { delete_task, toggle_complete } from "../todoActions/todoAction";
 
-function Todoitem(Todoitem) {
+function Todoitem({ todoItem, toggleCompleteTask, deleteTask }) {
   return (
     <div className="task">
-      <span className="taskicon">
-        {Todoitem.isDone && (
+      <span
+        className="taskicon"
+        onClick={() => toggleCompleteTask(todoItem.name)}
+      >
+        {!!todoItem.isDone && (
           <img
             height="16"
             src={`${process.env.PUBLIC_URL}/tick.png`}
             alt="task is completed"
-            onClick={this.toggleCompleteTask(Todoitem.name)}
           />
         )}
       </span>
-      {Todoitem.name}
+      {todoItem.name}
       <span>
         <img
           height="16"
           src={`${process.env.PUBLIC_URL}/delete.png`}
           alt="To delete task"
-          onClick={this.deleteTask(Todoitem.name)}
+          onClick={() => deleteTask(todoItem.name)}
         />
       </span>
     </div>
@@ -30,8 +32,8 @@ function Todoitem(Todoitem) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleCompletask: (name) => dispatch(toggle_complete(name)),
+  toggleCompleteTask: (name) => dispatch(toggle_complete(name)),
   deleteTask: (name) => dispatch(delete_task(name)),
 });
 
-export default connect(mapDispatchToProps)(Todoitem);
+export default connect(null, mapDispatchToProps)(Todoitem);

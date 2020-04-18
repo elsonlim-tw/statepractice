@@ -4,13 +4,15 @@ import { connect } from "react-redux";
 import { add_task } from "../todoActions/todoAction";
 import Todoitem from "./Todoitem";
 
-function TodoList() {
+function TodoList({ todoList }) {
   const [newName, setNewName] = useState("");
 
   const displayTodos = () => {
-    return this.props.todoList.map((todo) => {
-      return <Todoitem Todoitem={todo} />;
+    const list = todoList.map((todo) => {
+      return <Todoitem todoItem={todo} />;
     });
+
+    return list;
   };
 
   return (
@@ -40,7 +42,7 @@ function TodoList() {
 }
 
 const mapStateToProps = (state) => {
-  return { todoList: state.todoList };
+  return { todoList: state.todoActions.todoList };
 };
 
 const mapDispatchToProps = (dispatch) => ({
